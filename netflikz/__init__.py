@@ -1,9 +1,12 @@
 import os
 
 from flask import Flask
+from .views import Home
 
 
 def create_app(test_config=None):
+    """Create the instance of the application."""
+
     app = Flask(__name__, instance_relative_config=True)
 
     if test_config is None:
@@ -11,8 +14,7 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
-    @app.route("/")
-    def hello():
-        return "Hello, World!"
+    # Routing starts from here.
+    app.add_url_rule("/", view_func=Home.as_view("home"))
 
     return app
