@@ -1,7 +1,7 @@
 from flask import Flask
 
 from .views import Home
-from .auth import auth
+from .api import api
 
 
 def create_app(test_config=None):
@@ -16,6 +16,6 @@ def create_app(test_config=None):
 
     # Routing starts from here.
     app.add_url_rule("/", view_func=Home.as_view("home"))
-    app.register_blueprint(auth)
+    app.register_blueprint(api)
 
     return app
