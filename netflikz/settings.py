@@ -1,6 +1,7 @@
 import os
 
 from flask import Flask
+from flask_migrate import Migrate
 
 from .database import db
 from .views import Home
@@ -24,6 +25,7 @@ def create_app(test_config=None):
 
     # Instantiate the Database.
     db.init_app(app=app)
+    migrate = Migrate(app=app, db=db)
 
     # Routing starts from here.
     app.add_url_rule("/", view_func=Home.as_view("home"))
