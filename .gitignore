@@ -3,4 +3,4 @@
 .vscode
 .vs
 env
-config.py
+instance/config.py
