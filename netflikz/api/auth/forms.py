@@ -16,5 +16,7 @@ class FormSignUp(Form):
         ]
     )
     password_confirmation = fields.PasswordField(
-        validators=validators.InputRequired(message="Password confirmation is required")
+        validators=[
+            validators.InputRequired(message="Password confirmation is required")
+        ]
     )

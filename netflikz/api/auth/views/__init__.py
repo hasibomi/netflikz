@@ -1,1 +1,1 @@
-from .auth import ViewLogin
+from .auth import *
