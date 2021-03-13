@@ -3,6 +3,7 @@ from flask.views import View
 
 from netflikz.api.auth.forms import FormSignUp, FormSignIn
 from netflikz.libs.mixins import auth
+from netflikz.libs.mixins.views import ViewProtected
 
 
 class ViewSignUp(View):
@@ -55,6 +56,17 @@ class ViewLogOut(View):
 
     def dispatch_request(self):
         auth.logout()
+
+        return {
+            "status": "success"
+        }
+
+
+class ViewProfile(View, ViewProtected):
+    methods = ["GET"]
+
+    def dispatch_request(self):
+        print(self.user)
 
         return {
             "status": "success"
