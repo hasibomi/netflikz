@@ -1,4 +1,5 @@
 import os
+import wtforms_json
 
 from flask import Flask
 from flask_migrate import Migrate
@@ -26,6 +27,9 @@ def create_app(test_config=None):
     # Instantiate the Database.
     db.init_app(app=app)
     migrate = Migrate(app=app, db=db)
+
+    # Initialize WTForms to handle JSON data.
+    wtforms_json.init()
 
     # Routing starts from here.
     app.add_url_rule("/", view_func=Home.as_view("home"))

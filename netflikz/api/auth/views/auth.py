@@ -7,7 +7,7 @@ class ViewSignUp(View):
     methods = ["POST"]
 
     def dispatch_request(self):
-        form = FormSignUp(request.form)
+        form = FormSignUp.from_json(request.json)
 
         if form.validate():
             return {
