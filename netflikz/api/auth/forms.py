@@ -20,3 +20,19 @@ class FormSignUp(Form):
             validators.InputRequired(message="Password confirmation is required")
         ]
     )
+
+
+class FormSignIn(Form):
+    email = html5.EmailField(
+        validators=[
+            validators.InputRequired(),
+            validators.Email(message="Email is required")
+        ]
+    )
+    password = fields.PasswordField(
+        validators=[
+            validators.InputRequired(
+                message="Password is required"
+            )
+        ]
+    )

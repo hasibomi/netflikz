@@ -1,8 +1,8 @@
-import os
 import datetime
 import jwt
 from typing import Dict, Any
 
+from instance.config import SECRET_KEY
 from netflikz.libs.models import BlacklistedToken
 
 
@@ -20,15 +20,15 @@ class JWT:
 
         try:
             payload = {
-                "exp": datetime.datetime.now() + datetime.timedelta(days=0, seconds=6),
-                "iat": datetime.datetime.now(),
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(days=0, seconds=60),
+                "iat": datetime.datetime.utcnow(),
                 "sub": user_id,
                 **data
             }
 
             return jwt.encode(
                 payload,
-                os.environ["SECRET_KEY"]
+                SECRET_KEY
             )
         except Exception as e:
             raise e
@@ -45,7 +45,7 @@ class JWT:
         """
 
         try:
-            payload = jwt.decode(token, os.environ["SECRET_KEY"])
+            payload = jwt.decode(token, SECRET_KEY, algorithms="HS256")
             is_blacklisted = JWT.is_blacklisted(token=token)
 
             if is_blacklisted:
