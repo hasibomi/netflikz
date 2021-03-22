@@ -56,7 +56,7 @@ class ViewLogOut(View):
 
     @view_protected
     def dispatch_request(self):
-        auth.logout()
+        auth.logout(token=self.token)
 
         return {
             "status": "success"
@@ -68,8 +68,6 @@ class ViewProfile(View):
 
     @view_protected
     def dispatch_request(self):
-        # print(self.user)
-
         return {
             "status": "success",
             "result": {

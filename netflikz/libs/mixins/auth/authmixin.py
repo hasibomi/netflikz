@@ -5,7 +5,7 @@ from netflikz.database import db
 from netflikz.libs import JWT
 from netflikz.libs.models import BlacklistedToken
 from netflikz.api.auth.models import User as UserModel
-from .exceptions import AuthMixinException, TokenNotProvidedException
+from .exceptions import AuthMixinException
 
 
 class AuthMixin(object):
@@ -24,8 +24,6 @@ class AuthMixin(object):
         if not user or not check_password_hash(user.password, password):
             raise AuthMixinException("Invalid credentials")
 
-        print(user.__dict__)
-
         return user
 
     def login(self, email, password):
@@ -35,18 +33,7 @@ class AuthMixin(object):
             "email": user.email
         })
 
-    def logout(self) -> None:
-        token = None
-        header = request.headers.get("Authorization")
-
-        if header:
-            token = header.split(" ")[1]
-
-        if token is None:
-            raise TokenNotProvidedException("Provide a valid token")
-
-        JWT.decode(token=token)
-
+    def logout(self, token) -> None:
         blacklist_token = BlacklistedToken(token=token)
 
         try:

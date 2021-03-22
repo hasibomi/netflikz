@@ -49,13 +49,13 @@ class JWT:
             is_blacklisted = JWT.is_blacklisted(token=token)
 
             if is_blacklisted:
-                raise Exception("The token has been blacklisted.")
+                raise Exception("The token has been blacklisted")
 
             return payload["sub"]
         except jwt.ExpiredSignatureError:
-            raise Exception("The token has expired.")
+            raise Exception("The token has expired")
         except jwt.InvalidTokenError:
-            raise Exception("The token is invalid.")
+            raise Exception("The token is invalid")
 
     @staticmethod
     def is_blacklisted(token: str) -> bool:

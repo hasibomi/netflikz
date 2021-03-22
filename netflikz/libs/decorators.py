@@ -35,6 +35,7 @@ def view_protected(function):
 
             if user:
                 args.user = user
+                args.token = token
 
             return function(args)
         except Exception as e:
